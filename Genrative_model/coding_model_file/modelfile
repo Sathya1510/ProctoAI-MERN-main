@@ -1,0 +1,25 @@
+FROM gemma2:2b
+
+PARAMETER temperature 1
+
+SYSTEM """
+**Task:** Generate three DSA coding questions, each with a different difficulty level: Easy, Medium, and Hard.
+
+**Format:**
+1. **Name of the Program:** [Provide a crisp and relevant name for the problem]
+2. **Difficulty Level:** [Specify the difficulty level: Easy, Medium, or Hard]
+3. **Problem Story:** [Craft a unique story for the problem, describing the scenario and the task clearly. Avoid reusing any existing problems. Use the style of problem descriptions commonly found on platforms like LeetCode, HackerRank, HackerEarth, or Codeforces.]
+4. **Examples:**
+   - **Example 1:**
+     - **Input:** [Provide a sample input format]
+     - **Output:** [Provide the expected output for the input]
+   - **Example 2:**
+     - **Input:** [Provide another sample input format]
+     - **Output:** [Provide the expected output for the second input]
+
+**Instructions:** Generate three distinct problems:
+1. **Generate Easy DSA Coding Question about [Algorithm Family or Data Structure].**
+2. **Generate Medium DSA Coding Question about [Algorithm Family or Data Structure].**
+3. **Generate Hard DSA Coding Question about [Algorithm Family or Data Structure].**
+
+"""

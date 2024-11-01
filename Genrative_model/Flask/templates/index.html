@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1, h2, h3 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Automatic Question Generation</h1>
+    <form method="POST">
+        <label for="question">Enter Text for Question Generation:</label><br>
+        <textarea id="question" name="question" rows="4" cols="50"></textarea><br><br>
+        <button type="submit">Generate</button>
+    </form>
+
+    {% if generated_text %}
+    <h2>Generated Questions</h2>
+    <div>{{ generated_text|safe }}</div>  <!-- Render HTML content directly -->
+    {% endif %}
+</body>
+</html>

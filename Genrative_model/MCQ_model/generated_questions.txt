@@ -1,0 +1,41 @@
+## Multiple Choice Questions (MCQs):
+
+**1.**  Which of the following is NOT a key aspect of meta-learning?
+
+   a) Creating models that can generalize across tasks
+   b) Adapting quickly to new datasets with minimal fine-tuning 
+   c) Focusing on single-task learning models
+   d) Developing techniques for self-improvement and adaptation 
+
+
+**Answer:** c) Focusing on single-task learning models
+
+**2.**  What technique aims to introduce multi-modal learning, allowing the system to handle different types of data simultaneously?
+
+   a) Few-shot learning
+   b) MAML (Model-Agnostic Meta-Learning)
+   c) Multi-modal transformers 
+   d) All of the above
+
+
+**Answer:** d) All of the above
+
+
+## Short Answer Questions:
+
+**1.** Briefly describe one key challenge addressed by meta-learning compared to traditional machine learning.
+
+**Answer:** One key challenge addressed is quickly adapting to new datasets with minimal fine-tuning, which is particularly relevant in real-world applications with dynamic and evolving data. 
+
+
+**2.**  What are two different techniques discussed for implementing self-improvement within the Meta-Learning Project?
+
+
+**Answer:** Two techniques for self-improvement are:
+
+   * **Reinforcement learning:** This technique allows a system to learn through feedback from its previous actions, improving its performance over time.
+   * **Online learning algorithms:**  These algorithms enable continuous learning and adaptation based on new information acquired as the project progresses. 
+
+
+
+

@@ -1,0 +1,40 @@
+## Multiple Choice Questions (MCQs):
+
+1. **What is the primary focus of the "Meta-Learning" project outlined in the text?**
+    (a)  Building systems that can perform well on a single task with little to no fine-tuning. 
+    (b) Creating models and algorithms capable of learning how to learn, allowing adaptation across diverse tasks.
+    (c)  Developing techniques to automatically select optimal hyperparameters for machine learning model training.
+    (d) Applying various data preprocessing methods to improve the performance of automated machine learning systems.
+
+2. **Which technique is used in this project to develop a system capable of handling new datasets with minimal fine-tuning?**
+    (a)  Reinforcement Learning
+    (b)  Meta-Learning
+    (c)  Distributed computing 
+    (d) AutoML
+
+3. **What are two examples of tasks that can be addressed through multi-modal learning?**
+    (a) Predicting weather patterns and analyzing social media trends. 
+    (b) Classifying images and understanding natural language.
+    (c)  Filtering emails based on content and sender information.
+    (d) Analyzing stock market data and creating financial models.
+
+4. **Which of the following techniques can be used for "Self-improvement" in this project?** 
+     (a) Supervised learning
+    (b) Reinforcement Learning 
+    (c) Gradient boosting
+    (d)  Cross-validation
+
+5. **What is the main goal behind a “scalable architecture” within the context of this project?**
+   (a) Ensure efficient processing of massive datasets for real-time applications.
+   (b) Develop robust model training techniques for highly specialized tasks. 
+   (c) Design a system capable of adapting and learning from newly available data without human intervention. 
+    (d)  Streamline the deployment process on multiple servers to maximize efficiency.
+
+
+## Answer Key:
+
+1. **(b)** 
+2. **(b)** 
+3. **(b)**
+4. **(b)** 
+5. **(c)**  

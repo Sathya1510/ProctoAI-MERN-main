@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Code Compiler</title>
+</head>
+<body>
+    <h1>Online Code Compiler</h1>
+
+    <h2>Select a Question</h2>
+    <select id="questionSelect" onchange="loadQuestion()">
+        <option disabled selected>Select a question...</option>
+        {% for question in questions %}
+            <option value="{{ question.id }}">{{ question.title }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="questionDetails">
+        <h3>Question Details</h3>
+        <p id="description"></p>
+    </div>
+
+    <h2>Select Language</h2>
+    <select id="languageSelect">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+    </select>
+
+    <textarea id="codeInput" rows="10" cols="50" placeholder="Write your code here..."></textarea>
+    <br>
+    <button onclick="runCode()">Run Code</button>
+    
+    <h2>Test Case Results:</h2>
+    <p id="resultSummary"></p>
+    <div id="testCases"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
