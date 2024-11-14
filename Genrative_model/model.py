@@ -3,8 +3,9 @@ from extract_text import extract_text_from_pdf
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 import re
+import json
 
-# Initialize session state for page navigation and extracted text storage
+# Initialize session state variables
 if "page" not in st.session_state:
     st.session_state.page = "Upload"
 if "extracted_text" not in st.session_state:
@@ -15,146 +16,124 @@ if "short_answer_count" not in st.session_state:
     st.session_state.short_answer_count = 0
 if "generated_questions" not in st.session_state:
     st.session_state.generated_questions = ""
+if "generated_questions_json" not in st.session_state:
+    st.session_state.generated_questions_json = ""
 
-# Sidebar
+# Sidebar Navigation
 with st.sidebar:
-    st.image("file.png")
+    st.image("Copy-of-Copy-of-Copy-of-Pastel-Abstract-New-Blog-Instagram-Post-6.png")
     st.title("MCQ Generator")
     choice = st.radio(
         "Navigation",
-        ["Upload", "Profiling", "test", "download"],
-        index=["Upload", "Profiling", "test", "download"].index(st.session_state.page),
+        ["Upload", "Generating", "Test", "Download"],
+        index=["Upload", "Generating", "Test", "Download"].index(st.session_state.page),
     )
-    st.info("This project application helps you build and explore your data.")
-
-    # Update session state based on sidebar selection
+    
     st.session_state.page = choice
 
-# Main app logic based on page state
+# Helper function to extract and set text
+def extract_text_from_input(file, user_input):
+    if file:
+        return extract_text_from_pdf(file)
+    elif user_input.strip():
+        return user_input
+    else:
+        st.warning("Please provide either a PDF file or text input.")
+        return None
+
+# Helper function for question generation
+def generate_questions(model, question_prompt, response_placeholder):
+    response = ""
+    for result in model.stream({"question": question_prompt}):
+        response += result
+        response_placeholder.text(response)
+    st.session_state.generated_questions = response
+
+# Upload Page Logic
 if st.session_state.page == "Upload":
-    st.title("Upload Your PDF")
-
-    # File uploader for PDF files
+    st.title("Upload Your PDF or Enter Text")
     file = st.file_uploader("Upload Your PDF Dataset", type=["pdf"])
-
-    # Text area for user input
     user_input = st.text_area("Enter your text here:", height=200)
 
-    # Display label as handwritten-style text
-    st.markdown("<h3>Enter Count:</h3>", unsafe_allow_html=True)
+    # Count Inputs
+    st.markdown("<h3>Enter Question Count:</h3>", unsafe_allow_html=True)
+    st.session_state.mcq_count = st.number_input("MCQ Question Count", min_value=0, max_value=100)
+    st.session_state.short_answer_count = st.number_input("Short Answer Count", min_value=0, max_value=100)
 
-    # Number inputs for counts
-    st.session_state.mcq_count = st.number_input(
-        "MCQ Question Count", min_value=0, max_value=100
-    )
-    st.session_state.short_answer_count = st.number_input(
-        "Short Answer Count", min_value=0, max_value=100
-    )
-
-    # Button to trigger text extraction and navigate to profiling
+    # Generate Questions Button
     if st.button("Generate"):
-        if file is not None:
-            # Call the extraction function
-            extracted_text = extract_text_from_pdf(file)
-
-            # Append the counts to the extracted text and save to session state
-            st.session_state.extracted_text = (
-                f"{extracted_text}\n\n"
-                f"MCQ Question Count: {st.session_state.mcq_count}\n"
-                f"Short Answer Count: {st.session_state.short_answer_count}"
-            )
-
-            # Navigate to the "Profiling" page and rerun the app
-            st.session_state.page = "Profiling"
+        extracted_text = extract_text_from_input(file, user_input)
+        if extracted_text:
+            st.session_state.extracted_text = f"{extracted_text}\n\nMCQ Question Count: {st.session_state.mcq_count}\nShort Answer Count: {st.session_state.short_answer_count}"
+            st.session_state.page = "Generating"
             st.experimental_rerun()
-        else:
-            st.warning("Please upload a PDF file.")
 
-elif st.session_state.page == "Profiling":
-    st.title("Profiling Page")
-    st.write("Here you can explore and profile your extracted data.")
-
-    # Display the extracted text from session state
+# Generating Page Logic
+elif st.session_state.page == "Generating":
+    st.title("Generating Questions...")
     if st.session_state.extracted_text:
         st.text_area("Extracted Text", st.session_state.extracted_text, height=300)
 
-        # Set up the model and prompt
-        template = """
-        Based on the following information, generate questions as specified.
-
-        Information:
-        Text: {question}
-
-        Answer:
-        """
+        # Model and prompt setup
+        template = "Based on the following information, generate questions as specified.\n\nText: {question}\nAnswer: Provide the correct answer with text after all questions are generated."
         model = OllamaLLM(model="dexter:latest")
         prompt = ChatPromptTemplate.from_template(template)
         chain = prompt | model
 
-        # Combine everything into a single input variable
-        question = (
-            f"Generate {st.session_state.mcq_count} MCQs and {st.session_state.short_answer_count} short-answer questions and last give answer for all question "
-            f"based on the following text:\n\n{st.session_state.extracted_text}"
-        )
-
-        # Initialize streaming output
-        st.write("Generated Questions:")
+        question_prompt = f"Generate {st.session_state.mcq_count} MCQs and {st.session_state.short_answer_count} short-answer questions based on the following text:\n\n{st.session_state.extracted_text}"
         response_placeholder = st.empty()
-
-        def generate_questions():
-            response = ""
-
-            # Stream response incrementally
-            for result in chain.stream({"question": question}):
-                response += result
-                response_placeholder.text(response)  # Update the text incrementally
-
-            # Save generated questions in session state
-            st.session_state.generated_questions = response
-
-            # Move to the "test" page
-            st.session_state.page = "test"
-            st.experimental_rerun()
-
-        # Run the question generation function when the page loads
-        generate_questions()
+        generate_questions(chain, question_prompt, response_placeholder)
 
     else:
-        st.warning(
-            "No extracted text found. Please go to 'Upload' and generate the text first."
-        )
+        st.warning("No extracted text found. Please return to 'Upload' to input text.")
 
-elif st.session_state.page == "test":
-    st.title("Test Page")
-
-    # Check if generated questions are available
+# Test Page Logic
+elif st.session_state.page == "Test":
+    st.title("Test Generated Questions")
     if st.session_state.generated_questions:
-        # Display the entire generated questions content to inspect it
-        st.subheader("Full Generated Content:")
+        st.write("Generated Questions:")
         st.write(st.session_state.generated_questions)
 
-        # Define extraction function
+        # Process the generated questions
+        cleaned_questions = re.sub(r'\*\*|\*|\(.*?\)', '', st.session_state.generated_questions).strip()
+        question_section = cleaned_questions.split("Answer Explanations:")[0]
+        questions_pattern = r'(\d+\.\s+.+?)(?=\n\d+\.|\Z)'
+        options_pattern = r'([a-d])\)\s+(.+)'
         
+        questions = re.findall(questions_pattern, question_section, re.DOTALL)
+        formatted_questions = []
+        for i, question in enumerate(questions):
+            question_lines = question.strip().split('\n')
+            question_text = question_lines[0]
+            answers_text = '\n'.join(question_lines[1:])
+            options = re.findall(options_pattern, answers_text)
+            explanation_match = re.search(rf"{i+1}\.\s+([a-d])", cleaned_questions)
+            correct_letter = explanation_match.group(1) if explanation_match else None
 
-elif st.session_state.page == "download":
-    st.title("Download Page")
+            options_list = [{"optionText": option_text.strip(), "isCorrect": option_letter == correct_letter} for option_letter, option_text in options]
+            if options_list:
+                formatted_questions.append({"question": question_text.strip(), "options": options_list})
 
-    # Check if there are generated questions to download
-    if st.session_state.generated_questions:
-        # Button to download generated questions as a text file
-        def download_text_file(content, filename="generated_questions.txt"):
-            with open(filename, "w") as file:
-                file.write(content)
-            with open(filename, "rb") as file:
-                st.download_button(
-                    label="Download Generated Questions",
-                    data=file,
-                    file_name=filename,
-                    mime="text/plain"
-                )
+        # JSON Output
+        json_output = json.dumps(formatted_questions, indent=4)
+        st.session_state.generated_questions_json = json_output
+        st.subheader("Generated Questions in JSON Format:")
+        st.json(json_output)
 
-        # Call the download function
-        download_text_file(st.session_state.generated_questions)
+# Download Page Logic
+elif st.session_state.page == "Download":
+    st.title("Download Your Generated Questions")
 
+    if "generated_questions_json" in st.session_state:
+        st.subheader("Generated Questions JSON Preview:")
+        st.json(st.session_state.generated_questions_json)
+
+        # Download button
+        st.download_button(
+            label="Download Questions JSON",
+            data=st.session_state.generated_questions_json,
+            file_name="generated_questions.json",
+            mime="application/json"
+        )
     else:
-        st.warning("No generated questions available for download. Please generate questions first.")
+        st.warning("No questions generated. Please go to 'Test' to generate questions.")

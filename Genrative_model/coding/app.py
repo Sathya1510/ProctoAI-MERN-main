@@ -1,13 +1,13 @@
 import streamlit as st
 import subprocess
 
-# Define the questions with test cases
+# Define the questions with Preview cases
 questions = [
     {
         "id": 1,
         "title": "Sum of Two Numbers",
         "description": "Write a program that takes two numbers as input and prints their sum.",
-        "test_cases": [
+        "Preview_cases": [
             {"input": "5\n3", "expected_output": "8"},
             {"input": "10\n20", "expected_output": "30"},
             {"input": "0\n0", "expected_output": "0"}
@@ -17,7 +17,7 @@ questions = [
         "id": 2,
         "title": "Reverse a String",
         "description": "Write a program that reverses the input string.",
-        "test_cases": [
+        "Preview_cases": [
             {"input": "hello", "expected_output": "olleh"},
             {"input": "world", "expected_output": "dlrow"},
             {"input": "Python", "expected_output": "nohtyP"}
@@ -46,8 +46,8 @@ code = st.text_area("Write your code here...", height=200)
 if st.button("Run Code"):
     results = []
     
-    for test_case in selected_question["test_cases"]:
-        input_data = test_case["input"]  # This should have the correct input format
+    for Preview_case in selected_question["Preview_cases"]:
+        input_data = Preview_case["input"]  # This should have the correct input format
         
         if language == "Python":
             # Define a Python function to run user code
@@ -89,25 +89,25 @@ console.log(user_code());
                 timeout=5
             )
             output = result.stdout.strip()
-            is_pass = output == test_case["expected_output"]
+            is_pass = output == Preview_case["expected_output"]
             results.append({
                 "input": input_data, 
-                "expected_output": test_case["expected_output"], 
+                "expected_output": Preview_case["expected_output"], 
                 "output": output, 
                 "is_pass": is_pass
             })
         except subprocess.TimeoutExpired:
-            results.append({"input": input_data, "expected_output": test_case["expected_output"], "output": "Error: Code execution timed out.", "is_pass": False})
+            results.append({"input": input_data, "expected_output": Preview_case["expected_output"], "output": "Error: Code execution timed out.", "is_pass": False})
 
     # Display results summary
     total_passed = sum(1 for result in results if result["is_pass"])
-    total_cases = len(selected_question["test_cases"])
+    total_cases = len(selected_question["Preview_cases"])
 
-    st.write(f"### Test Cases Passed: {total_passed}/{total_cases}")
+    st.write(f"### Preview Cases Passed: {total_passed}/{total_cases}")
 
-    # Display each test case result
+    # Display each Preview case result
     for idx, result in enumerate(results, 1):
-        st.write(f"**Test Case {idx}**")
+        st.write(f"**Preview Case {idx}**")
         st.write(f"- **Input:** {result['input']}")
         st.write(f"- **Expected Output:** {result['expected_output']}")
         st.write(f"- **Your Output:** {result['output']}")

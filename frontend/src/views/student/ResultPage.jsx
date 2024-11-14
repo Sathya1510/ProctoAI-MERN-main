@@ -3,13 +3,16 @@ import { Typography } from '@mui/material';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../../components/shared/DashboardCard';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { NightShelter } from '@mui/icons-material';
 
 const ResultPage = () => {
   const [result, setResult] = useState([])
   const userEmail = 'suryaroxx@gmail.com';
   const fetchUserResult = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/get-result`);
+      const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
+      let email = userInfo.role === "student" ? userInfo?.email: "false";
+      const response = await fetch(`http://localhost:5000/api/users/get-result/${email}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user result');
       }

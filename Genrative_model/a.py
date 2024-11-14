@@ -6,7 +6,7 @@ from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 from datetime import datetime
 
-# Initialize session state for page navigation and extracted text storage
+# Initialize session state fo
 if "page" not in st.session_state:
     st.session_state.page = "Upload"
 if "extracted_text" not in st.session_state:

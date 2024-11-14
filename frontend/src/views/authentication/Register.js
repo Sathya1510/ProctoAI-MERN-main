@@ -24,7 +24,7 @@ const userValidationSchema = yup.object({
     .string()
     .required('Confirm Password is required')
     .oneOf([yup.ref('password'), null], 'Password must match'),
-  role: yup.string().oneOf(['student', 'teacher'], 'Invalid role').required('Role is required'),
+  role: yup.string().oneOf(['student', 'teacher', "teacher1"], 'Invalid role').required('Role is required'),
 });
 const initialUserValues = {
   name: '',
@@ -65,6 +65,7 @@ const Register = () => {
       toast.error('Passwords do not match');
     } else {
       try {
+        role = role === "teacher1" ? "teacher" : role;
         const res = await register({ name, email, password, role }).unwrap();
         dispatch(setCredentials({ ...res }));
         formik.resetForm();
@@ -113,7 +114,7 @@ const Register = () => {
                 onSubmit={handleSubmit}
                 subtext={
                   <Typography variant="subtitle1" textAlign="center" color="textSecondary" mb={1}>
-                    CONDUCT SECURE ONLINE EXAMS NOW
+                    Assessment Platform
                   </Typography>
                 }
                 subtitle={

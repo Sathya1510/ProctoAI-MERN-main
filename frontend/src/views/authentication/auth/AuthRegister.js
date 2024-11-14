@@ -148,7 +148,7 @@ const AuthRegister = ({ formik, title, subtitle, subtext }) => {
           >
             <MenuItem value="student">Candidate</MenuItem>
             <MenuItem value="teacher">Instructor</MenuItem>
-            <MenuItem value="teacher">Administrator</MenuItem>
+            <MenuItem value="teacher1">Administrator</MenuItem>
           </Select>
         </Stack>
         <Button

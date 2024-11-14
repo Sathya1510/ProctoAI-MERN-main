@@ -5,52 +5,46 @@ from markupsafe import Markup
 
 # Set up the LangChain model and prompt
 template = """
-    Based on the following information, generate questions as specified.
+    Based on the following information, generate both questions and answers as specified.
 
     Information:
-    Text: {question}
+    Text: {question_text}
 
-    Answer:
+    Output:
     """
 model = OllamaLLM(model="coding:latest")
 prompt_template = ChatPromptTemplate.from_template(template)
 
-def generate_questions(question_text):
+def generate_questions_and_answers(question_text):
     # Format the prompt
-    prompt = prompt_template.format(question=question_text)
+    prompt = prompt_template.format(question_text=question_text)
     
     # Generate response from the model
     raw_text = model(prompt)
     
-    # Organize the generated text with HTML formatting
-    formatted_text = organize_output(raw_text)
+    # Organize the generated text with line-by-line HTML formatting
+    formatted_text = organize_output_line_by_line(raw_text)
     return Markup(formatted_text)  # Return HTML formatted text for Gradio to render
 
-def organize_output(text):
-    # Organize the output by splitting and adding HTML tags for better readability
-    sections = text.split("**")  # Split text by "**" to find headings
+def organize_output_line_by_line(text):
+    # Organize the output by splitting each line and wrapping it in a <p> tag
+    lines = text.split("\n")  # Split text by newlines
     html_output = "<div>"
 
-    for section in sections:
-        if section.strip().startswith("1.") or section.strip().startswith("2.") or section.strip().startswith("3."):
-            html_output += f"<h2>{section.strip()}</h2>"
-        elif "Examples:" in section:
-            html_output += f"<h3>Examples:</h3><ul>"
-        elif "Example" in section:
-            html_output += f"<li><strong>{section.strip()}</strong></li>"
-        else:
-            html_output += f"<p>{section.strip()}</p>"
+    for line in lines:
+        if line.strip():  # Skip empty lines
+            html_output += f"<p>{line.strip()}</p>"
 
-    html_output += "</ul></div>"
+    html_output += "</div>"
     return html_output
 
 # Define Gradio interface
 iface = gr.Interface(
-    fn=generate_questions,
+    fn=generate_questions_and_answers,
     inputs="text",
     outputs="html",
-    title="Question Generator",
-    description="Enter text to generate questions based on the input."
+    title="Question and Answer Generator",
+    description="Enter text to generate questions and answers line by line based on the input."
 )
 
 if __name__ == "__main__":

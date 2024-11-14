@@ -56,7 +56,7 @@ export default function MultipleChoiceQuestion({ questions, saveUserTestScore, s
           Question {currentQuestion + 1}:
         </Typography>
         <Typography variant="body1" mb={3}>
-          {questions[currentQuestion].question}
+          {questions[currentQuestion]?.question}
         </Typography>
         <Box mb={3}>
           <FormControl component="fieldset">

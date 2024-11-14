@@ -36,6 +36,13 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: 'Coding Exam',
+    icon: IconBrandBilibili,
+    href: 'http://localhost:8502/',
+    external: true,
+  },
+  {
+    id: uniqueId(),
     title: 'Result',
     icon: IconCopy,
     href: '/result',

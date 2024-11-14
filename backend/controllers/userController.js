@@ -133,18 +133,33 @@ const createUserTestResult = asyncHandler(async (req, res) => {
   });
 });
 const getUserTestResultsByEmail = asyncHandler(async (req, res) => {
+  const { id } = req.params; // Extract the email (id) from request parameters
 
+  let results;
+  console.log(id, "id")
+  if (id !== "false") {
+    console.log("if")
+    // If id (email) is provided, find the result for that particular email
+    results = await Result.find({ email: id });
 
-  // Find results for the given email
-  const results = await Result.find();
-
-  if (results && results.length > 0) {
-    res.status(200).json(results);
+    if (!results) {
+      res.status(404);
+      throw new Error("No result found for the provided email");
+    }
   } else {
-    res.status(404);
-    throw new Error("No results found for the provided email");
+    console.log("else")
+    // If no id (email) is provided, return all results
+    results = await Result.find();
+
+    if (!results || results.length === 0) {
+      res.status(404);
+      throw new Error("No results found");
+    }
   }
+
+  res.status(200).json(results);
 });
+
 export {
   authUser,
   registerUser,

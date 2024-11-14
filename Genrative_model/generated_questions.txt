@@ -1,40 +1,194 @@
-## Multiple Choice Questions (MCQs):
-
-1. **What is the primary focus of the "Meta-Learning" project outlined in the text?**
-    (a)  Building systems that can perform well on a single task with little to no fine-tuning. 
-    (b) Creating models and algorithms capable of learning how to learn, allowing adaptation across diverse tasks.
-    (c)  Developing techniques to automatically select optimal hyperparameters for machine learning model training.
-    (d) Applying various data preprocessing methods to improve the performance of automated machine learning systems.
-
-2. **Which technique is used in this project to develop a system capable of handling new datasets with minimal fine-tuning?**
-    (a)  Reinforcement Learning
-    (b)  Meta-Learning
-    (c)  Distributed computing 
-    (d) AutoML
-
-3. **What are two examples of tasks that can be addressed through multi-modal learning?**
-    (a) Predicting weather patterns and analyzing social media trends. 
-    (b) Classifying images and understanding natural language.
-    (c)  Filtering emails based on content and sender information.
-    (d) Analyzing stock market data and creating financial models.
-
-4. **Which of the following techniques can be used for "Self-improvement" in this project?** 
-     (a) Supervised learning
-    (b) Reinforcement Learning 
-    (c) Gradient boosting
-    (d)  Cross-validation
-
-5. **What is the main goal behind a “scalable architecture” within the context of this project?**
-   (a) Ensure efficient processing of massive datasets for real-time applications.
-   (b) Develop robust model training techniques for highly specialized tasks. 
-   (c) Design a system capable of adapting and learning from newly available data without human intervention. 
-    (d)  Streamline the deployment process on multiple servers to maximize efficiency.
-
-
-## Answer Key:
-
-1. **(b)** 
-2. **(b)** 
-3. **(b)**
-4. **(b)** 
-5. **(c)**  
+[
+  {
+    "_id": "question_1",
+    "question": "## Multiple Choice Questions:",
+    "options": [],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_2",
+    "question": "**1.**  What is the primary focus of the \"Meta-Learning\" project? ",
+    "options": [
+      {
+        "optionText": "* a) Implementing deep neural networks for image classification.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Building an automated machine learning system that can learn how to learn and adapt.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Developing algorithms for self-driving cars using advanced sensors.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_3",
+    "question": "**2.**  Which of the following is NOT a technique described in the \"Meta-Learning Setup\" section?",
+    "options": [
+      {
+        "optionText": "* a) Learning from limited data samples via few-shot learning.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Utilizing multi-modal transformers for combining different data types.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Implementing reinforcement learning algorithms for continuous self-improvement.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_4",
+    "question": "**3.** What is the main objective of the \"Self-Improvement\" section? ",
+    "options": [
+      {
+        "optionText": "* a)  Develop advanced techniques for feature extraction from complex data.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Create a system that can adapt to new tasks with minimal fine-tuning.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Increase the performance of existing models using hyperparameter tuning.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_5",
+    "question": "**4.** Which of the following is NOT mentioned as a method for ensuring scalability in \"Scalable Architecture\"? ",
+    "options": [
+      {
+        "optionText": "* a) Utilizing distributed computing frameworks like PyTorch Lightning or Ray.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Implementing traditional model compression techniques for size reduction.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Employing efficient data management techniques for faster dataset access and processing.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_6",
+    "question": "**5.** What is the first week objective of the project?",
+    "options": [
+      {
+        "optionText": "* a) Develop a self-driving car simulation program.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Build an AutoML system and demonstrate its effectiveness on real-world datasets.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Investigate advanced concepts in neural network optimization for improved accuracy.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_7",
+    "question": "**6.** Which technique is NOT mentioned as a method to handle limited data samples via \"Meta-Learning\"? ",
+    "options": [
+      {
+        "optionText": "* a)  Implementing MAML or Prototypical Networks.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b)   Analyzing existing model performance metrics and identifying weaknesses.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c)  Designing algorithms for adaptive learning from multiple datasets.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_8",
+    "question": "**7.** What is the intended outcome of this project? ",
+    "options": [
+      {
+        "optionText": "* a) Design and implement novel image compression algorithms.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* b) Develop a machine learning system capable of handling complex datasets and adapting to new tasks with minimal effort.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "* c) Create a user-friendly interface for building and deploying machine learning models.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_9",
+    "question": "## Answer Key:",
+    "options": [],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  },
+  {
+    "_id": "question_10",
+    "question": "1. b) Building an automated machine learning system that can learn how to learn and adapt.",
+    "options": [
+      {
+        "optionText": "d) Developing algorithms to directly analyze and predict stock prices.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "b) Create a system that can adapt to new tasks with minimal fine-tuning.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "d) Designing models that operate solely on a single server for optimal performance.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "b) Build an AutoML system and demonstrate its effectiveness on real-world datasets.",
+        "isCorrect": false
+      },
+      {
+        "optionText": "b)  Analyzing existing model performance metrics and identifying weaknesses.",
+        "isCorrect": false
+      }
+    ],
+    "createdAt": "2024-11-01T12:40:36.074254Z",
+    "updatedAt": "2024-11-01T12:40:36.074254Z",
+    "__v": 0
+  }
+]

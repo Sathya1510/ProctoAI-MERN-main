@@ -16,7 +16,7 @@ userRoutes.post("/auth", authUser);
 userRoutes.post("/logout", logoutUser);
 userRoutes.post("/register", registerUser);
 userRoutes.post("/submit-result", createUserTestResult);
-userRoutes.get("/get-result", getUserTestResultsByEmail);
+userRoutes.get("/get-result/:id", getUserTestResultsByEmail);
 
 
 // protecting profile route using auth middleware protect

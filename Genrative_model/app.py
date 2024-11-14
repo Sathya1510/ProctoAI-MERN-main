@@ -20,12 +20,12 @@ if "generated_questions" not in st.session_state:
 
 # Sidebar Navigation
 with st.sidebar:
-    st.image("file.png")
+    st.image("Copy-of-Copy-of-Copy-of-Pastel-Abstract-New-Blog-Instagram-Post-6.png")
     st.title("MCQ Generator")
     choice = st.radio(
         "Navigation",
-        ["Upload", "Profiling", "Test", "Download"],
-        index=["Upload", "Profiling", "Test", "Download"].index(st.session_state.page),
+        ["Upload", "genrating", "Test", "Download"],
+        index=["Upload", "genrating", "Test", "Download"].index(st.session_state.page),
     )
     st.info("This project helps you build and explore your data.")
     st.session_state.page = choice
@@ -50,18 +50,18 @@ if st.session_state.page == "Upload":
             st.session_state.extracted_text = (
                 f"{extracted_text}\n\nMCQ Question Count: {st.session_state.mcq_count}\nShort Answer Count: {st.session_state.short_answer_count}"
             )
-            st.session_state.page = "Profiling"
+            st.session_state.page = "genrating"
             st.experimental_rerun()
         else:
             st.warning("Please upload a PDF file.")
 
-elif st.session_state.page == "Profiling":
-    st.title("Profiling Page")
+elif st.session_state.page == "genrating":
+    st.title("genrating Page")
     if st.session_state.extracted_text:
         st.text_area("Extracted Text", st.session_state.extracted_text, height=300)
 
         # Setup the model and prompt
-        template = "Based on the following information, generate questions as specified.\n\nText: {question}\nAnswer:give the correct option +answer after all question are genrated"
+        template = "Based on the following information, generate questions as specified.\n\nText: {question}\nAnswer:give the correct complete option with text after all question are genrated"
         model = OllamaLLM(model="dexter:latest")
         prompt = ChatPromptTemplate.from_template(template)
         chain = prompt | model
@@ -117,17 +117,11 @@ elif st.session_state.page == "Test":
                 options_list.append({
                     "optionText": option_text.strip(),
                     "isCorrect": option_letter == correct_letter,
-                    "_id": ObjectId()
                 })
 
             formatted_questions.append({
-                "_id": ObjectId(),
                 "question": question_text.strip(),
                 "options": options_list,
-                "examId": exam_id,
-                "createdAt": timestamp,
-                "updatedAt": timestamp,
-                "__v": 0
             })
         
 
@@ -138,13 +132,40 @@ elif st.session_state.page == "Test":
 
 # Convert to JSON
         json_output = json.dumps(filtered_questions, default=str, indent=2)
+        
+        
 
 
 # Display a download button for the generated JSON
+        
+        
+        
+        
+        st.session_state.generated_questions_json = json.dumps(filtered_questions, indent=4)
+
+        # Display JSON output
+        st.subheader("Generated Questions in JSON Format:")
+        st.json(st.session_state.generated_questions_json)
+
+
+elif st.session_state.page == "Download":
+    st.title("Download Page")
+
+    if "generated_questions_json" in st.session_state:
+        # Display JSON content before downloading
+        st.subheader("Generated Questions JSON Preview:")
+        st.json(st.session_state.generated_questions_json)
+        
+        # Download button for JSON file
         st.download_button(
-                label="Download Questions JSON",
-                data=json_output,
-                file_name="generated_questions.json",
-                mime="application/json"
-            )
+            label="Download Questions JSON",
+            data=st.session_state.generated_questions_json,
+            file_name="generated_questions.json",
+            mime="application/json"
+        )
+    else:
+        st.warning("No questions generated. Please go to 'Test' to generate questions.")
+    
+        
+        
 
